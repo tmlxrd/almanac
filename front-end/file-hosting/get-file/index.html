@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" id='code-field' />
+  <button type="button" id='button-send'  onclick="downloadFunction()">123</button>
+
+  <a href="#" id="download-file">Скачать файл</a>
+  <script>
+      // const data = { value:'воркає' };
+      // const options = {
+      //     method: "POST",
+      //     body: JSON.stringify(data),
+      //     headers: {
+      //         "Content-Type": "application/json",
+      //     },
+      // };
+      // fetch("/api/test", options);
+
+      async function downloadFunction() {
+        const data = { code: document.getElementById('code-field').value };
+
+        try {
+          const response = await fetch('/api/download-file', {
+            method: 'POST', // или 'PUT'
+            body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          const json = await response.json();
+          console.log(json)
+          let downloadFile = document.getElementById('download-file')
+          
+          downloadFile.setAttribute('href', json.path)
+
+        } catch (error) {
+          console.error('Ошибка:', error);
+        }
+      }
+
+
+  </script>
+</body>
+
+</html>

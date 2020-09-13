@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hide{
+            display: none;
+        }
+        .disabled{
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <form id='form-test' action="/api/upload-file" method="post" enctype="multipart/form-data">
+        <label>Файл</label><br>
+        <input type="file" id='filedata' name="filedata" /><br>
+
+        <div class="hide">
+            <input type="radio" id="1download" name="maxData" value='0'
+                   disabled>
+            <label for="1download" class="disabled">1 download</label>
+          </div>
+          
+          <div class="hide">
+            <input type="radio" id="1day" name="maxData" value='1' checked>
+            <label for="1day">1 day</label>
+          </div>
+          
+          <div class="hide">
+            <input type="radio" id="7day" name="maxData" value='7'>
+            <label for="7day">7 day</label>
+          </div>
+
+        <input class="hide" type="submit" value="123" />
+    </form>
+    <script>
+
+        //  checkboxArray.forEach(element => element.style.display = "block")
+
+         
+
+        document.getElementById('filedata').addEventListener('change', (event) => {
+            const fileList = event.target.files;
+
+            let checkboxArray = Array.from(document.getElementsByClassName('hide'))
+         
+         checkboxArray.forEach(element => element.style.display = "block");
+
+            // document.getElementById('form-test').event.preventDefault();
+
+            console.log(fileList)
+            if (fileList[0].size > 1073741824) {
+                alert('Файл повинен бути менше 1GB')
+            } else if (fileList[0].size < 1073741824) {
+
+                // document.getElementById('form-test').submit()
+            } else { alert('Невідома помилка') }
+
+
+        })
+    </script>
+</body>
+
+</html>
